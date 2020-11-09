@@ -36,18 +36,6 @@
             }
 
             componentDidMount(){
-                // this.interval = setInterval(() => {
-                //     this.setState({
-                //         count : this.state.count + 1
-                //     })
-                // }, 1000)
-
-                // setInterval(() => {
-                //     this.setState({ starts: this.state.stars.push("*") })
-                // }, 500)
-                // setTimeout(() => {
-                //     this.setState({life: false})
-                // }, 5000)
                 this.interval = setInterval(() => {
                     this.setState({change: !this.state.change})
                 }, 500)
@@ -63,11 +51,6 @@
                     console.log( 'new state count :' , this.state.change, 'old state count',  prevStates.change)
                     this.setState({steps: this.state.steps.concat(<Barre />)})
                 }
-
-                // Les props ont changé
-                // if (this.state.rand !== prevStates.rand) {
-                //     console.log( 'new state count :' , this.state.count, 'old state count',  prevProps.count)
-                // }
             }
 
             render(){
