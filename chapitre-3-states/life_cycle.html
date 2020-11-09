@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Clock extends React.Component {
+            // constructor 1 fois au dé
+            constructor(props){
+                super(props);
+                this.state = {
+                    time: new Date,
+                    timer: ''
+                }
+
+                console.log('1. CONSTRUCTOR');
+            }
+
+            componentDidMount(){
+                console.log('3. componentDidMount'.toUpperCase());
+
+                this.setState({timer : setInterval(() => {
+                    this.setState({time: new Date})
+                    console.log(this.state.time)
+                }, 1000)
+            
+            })
+            }
+            componentWillUnmount(){
+                console.log('component unmounted')
+                window.clearInterval(this.state.timer)
+            }
+
+
+            render() {
+                
+                console.log('2. RENDER');
+
+                const { count } = this.state;
+                
+                return (
+                    <div className="heading" >
+                        <p>Life Cycle</p>
+                        <p>{this.state.time.toLocaleTimeString()}</p>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props){
+                super(props)
+                this.state = {
+                    life : true
+                }
+            }
+
+            componentDidMount(){
+                setTimeout(() => {
+                    this.setState({life: false})
+                }, 5000)
+            }
+
+            render(){
+                const { life } = this.state
+                if(life === true){
+                        return (
+                        <Clock />
+                    )
+                } else {
+                    return (
+                        <p> App is dead </p>
+                    )
+                }
+            }
+        }
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
