@@ -33,17 +33,26 @@
 
                 // Définition d'un state qui peut donc muter = être modifié
                 this.state = {
-                    numbers : [1, 2, 3],
-                    count: 3
+                    time: new Date
                 }
+            }
+
+            componentDidMount(){
+                // Attendre que le rendu soit monté, elle s'éxecute après la méthode render
+
+                setInterval(
+                    () => {
+                        this.setState({time : new Date})
+
+                        console.log(this.state.time)
+                    }
+                , 1000)
             }
             
             render(){
-                
-
                 return (
                     <div className="main">
-                        
+                        <p>Time: {this.state.time.toTimeString()}</p>
                     </div>
                 )
             }
@@ -52,7 +61,7 @@
 
         // Rendu dans le DOM
             ReactDOM.render(
-                <App title="Wesh la street" />,
+                <App />,
                 document.getElementById('root')
             );
     </script>
