@@ -31,18 +31,19 @@
                     change: true,
                     steps: []
                 },
-
+                this.timer = 500
+                this.lignes = this.timer * 10
                 this.interval = null
             }
 
             componentDidMount(){
                 this.interval = setInterval(() => {
                     this.setState({change: !this.state.change})
-                }, 500)
+                }, this.timer)
 
                 setTimeout(() => {
                     clearInterval(this.interval)
-                }, 5000)
+                }, this.lignes)
             }
 
             componentDidUpdate(prevProps, prevStates) {
