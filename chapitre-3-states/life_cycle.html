@@ -45,11 +45,10 @@
             }
             componentWillUnmount(){
                 console.log('component unmounted')
-                window.clearInterval(this.state.timer)
+                clearInterval(this.state.timer)
                 console.log('ineterval cleared')
             }
-
-
+            
             render() {
                 
                 console.log('2. RENDER');
