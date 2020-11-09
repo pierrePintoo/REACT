@@ -61,12 +61,13 @@
 
                 if (this.state.change !== prevStates.change) {
                     console.log( 'new state count :' , this.state.change, 'old state count',  prevStates.change)
-                    this.setState({steps: this.state.steps.concat(<Barre />)})                }
+                    this.setState({steps: this.state.steps.concat(<Barre />)})
+                }
 
                 // Les props ont changé
-                if (this.state.rand !== prevStates.rand) {
-                    console.log( 'new state count :' , this.state.count, 'old state count',  prevProps.count)
-                }
+                // if (this.state.rand !== prevStates.rand) {
+                //     console.log( 'new state count :' , this.state.count, 'old state count',  prevProps.count)
+                // }
             }
 
             render(){
