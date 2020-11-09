@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        
+
+        // Component
+        class App extends React.Component{
+            constructor(props){
+                super(props)
+                this.myRef = React.createRef()
+            }
+            render(){
+                let time = new Date()
+                setInterval(
+                    function(){
+                       this.myRef.innerHtml = "<p>" + time.toLocaleTimeString() + "</p>"
+                    }
+                , 1000)
+                const messages = ["hello", "ça va", "et toi ?"];
+
+                return (
+                    <div className="main">
+                        <p ref={this.myRef}></p>
+                    </div>
+                )
+            }
+        }
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <App title="Wesh la street" />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
