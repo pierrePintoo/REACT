@@ -25,25 +25,36 @@
 
         // Component
         class App extends React.Component{
+            constructor(props){
+                super(props); // pour le donner au parent React.Component
+
+                // Attention si on doit définir des propriétés dans notre class
+                // Dans votre classe vous deenez le daire après super sinon JS retourne une erreur
+
+                // Définition d'un state qui peut donc muter = être modifié
+                this.state = {
+                    numbers : [1, 2, 3],
+                    count: 3
+                }
+            }
+            
             render(){
-                let time = new Date()
+                
 
                 return (
                     <div className="main">
-                        <p>{time.toLocaleString}</p>
+                        
                     </div>
                 )
             }
         }
 
 
-        setInterval(() => {
         // Rendu dans le DOM
             ReactDOM.render(
                 <App title="Wesh la street" />,
                 document.getElementById('root')
             );
-        }, 1000)
     </script>
 </body>
 
