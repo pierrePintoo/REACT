@@ -64,37 +64,74 @@
             }
         }
 
-        class App extends React.Component {
+        class Counter extends React.Component {
             constructor(props){
                 super(props)
                 this.state = {
-                    life : true
-                }
+                    count : 0,
+                    starts: []
+                },
+
+                this.interval = null
             }
 
             componentDidMount(){
-                setTimeout(() => {
-                    this.setState({life: false})
-                }, 5000)
+                this.interval = setInterval(() => {
+                    this.setState({
+                        count : this.state.count + 1
+                    })
+                }, 1000)
+
+                setInterval(() => {
+                    this.setState({ starts: this.state.stars.push("*") })
+                }, 500)
+                // setTimeout(() => {
+                //     this.setState({life: false})
+                // }, 5000)
+            }
+
+            componentDidUpdate(prevProps, prevStates) {
+
+                if (this.state.count !== prevStates.count) {
+                    console.log( 'new state count :' , this.state.count, 'old state count',  prevStates.count)
+                }
+
+                // Les props ont changé
+                if (this.state.rand !== prevStates.rand) {
+                    console.log( 'new state count :' , this.state.count, 'old state count',  prevProps.count)
+                }
             }
 
             render(){
-                const { life } = this.state
-                if(life === true){
-                        return (
-                        <Clock />
-                    )
-                } else {
-                    return (
-                        <p> App is dead </p>
-                    )
+                const { count } = this.state
+
+                return (
+                    <div>
+                        <p>{count}</p>
+                    </div>
+                )
+            }
+        }
+
+        class CounterHome extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    life :  true,
+                    rand: null
                 }
+            }
+            componentDidMount(){
+                console.log("COMPONENT DID MOUNT")
+                this.interval = setInterval(() => {
+                    this.setState({ rand:  Math.random()})
+                })
             }
         }
 
         // Rendu dans le DOM
         ReactDOM.render(
-            <App />,
+            <Counter rand={this.state.rand}/>,
             document.getElementById('root')
         );
     </script>
