@@ -54,11 +54,11 @@
 
                 // [name] JS inerprète le name comme valeur
                 // et cela permet d'avoir la bonne clé dans le state        
-                this.setState({ [name]: value })
+                this.setState({ [name]: value.toUpperCase() })
             }
 
             handleSubmit(event) {
-                let userToAdd = this.state.name.toUpperCase() + ' ' + this.state.lastname.toUpperCase()
+                let userToAdd = this.state.name + ' ' + this.state.lastname
                 if(this.state.users.includes(userToAdd)){
                     this.setState({isError: true})
                     setTimeout(() => {
