@@ -26,7 +26,6 @@
             constructor(props){
                 super(props)
                 this.state = {
-                    status: false,
                     change: true,
                     steps: new Date
                 },
@@ -37,10 +36,6 @@
             }
 
             componentDidMount(){
-                // this.interval = setInterval(() => {
-                //     this.setState({change: !this.state.change})
-                // }, this.timer)
-
                 setTimeout(() => {
                         this.setState({change: !this.state.change})
                 }, this.lignes)
