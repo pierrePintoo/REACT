@@ -83,6 +83,7 @@
                         <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
                         {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
                         <p>{this.state.binary}</p>
+                        <p>{this.state.count}</p>
                     </div>
                 )
             }
@@ -98,6 +99,7 @@
                     count: 0,
                     disabled: false,
                     displayReset: false,
+                    binary: 0
                 }
                 this.interval = null
             }
@@ -109,6 +111,7 @@
                         this.setState({count: 0})
                     }
                     this.setState({count: this.state.count + 2})
+                    this.setState({binary: parseInt(this.state.count).toString(2)})
                     this.setState({displayReset: true})
                 }, 1000)
                 this.setState({disabled: true})
@@ -124,12 +127,16 @@
                 this.setState({displayReset : false})
             }
 
+            //     { /** ?? si ça existe c'est évaluée et sinon on fait ce qui alternatif après les ?? ici  */}
+            //   Start + {step} { cyclic ?? ''}
+
             render(){
                 return (
                     <div>
                         <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +2</button>
                         <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +2</button>
                         {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
+                        <p>{this.state.binary}</p>
                         <p>{this.state.count}</p>
                     </div>
                 )
