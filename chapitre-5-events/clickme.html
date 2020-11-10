@@ -24,64 +24,13 @@
         class App extends React.Component{
             constructor(props){
                 super(props);
-                this.start = this.start.bind(this)
-                this.stop = this.stop.bind(this)
-                this.start2 = this.start2.bind(this)
-                this.stop2 = this.stop2.bind(this)
-                this.state = {
-                    count: 0,
-                    count2: 0,
-                    disabled: false,
-                    disabled2: false,
-                }
-
-                this.interval1 = null
-                this.interval2 = null
-            }
-
-            start(){
-                console.log('start');
-                this.interval1 = setInterval(() => {
-                    if(this.state.count >= 20){
-                        this.setState({count: 0})
-                    }
-                    this.setState({count: this.state.count + 1})
-                }, 1000)
-
-                this.setState({disabled: true})
-            }
-            
-            stop(){
-                clearInterval(this.interval1)
-                this.setState({disabled: false})
-            }
-
-
-            start2(){
-                console.log('start');
-                this.interval2 = setInterval(() => {
-                    if(this.state.count2 >= 20){
-                        this.setState({count: 0})
-                    }
-                    this.setState({count2: this.state.count2 + 2})
-                }, 1000)
-                this.setState({disabled2: true})
-            }
-            
-            stop2(){
-                clearInterval(this.interval2)
-                this.setState({disabled2: false})
             }
 
             render(){
                 return (
                     <div>
-                        <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +1</button>
-                        <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
-                        <Compteur count={this.state.count} />
-                        <button name="Hello React" onClick={this.start2} disabled={this.state.disabled2}>Start +2</button>
-                        <button name="Hello React" onClick={this.stop2} disabled={!this.state.disabled2}>Stop +2</button>
-                        <Compteur count={this.state.count2} />
+                        <Compteur/>
+                        <Compteur2 />
                     </div>
                 )
             }
@@ -89,12 +38,98 @@
 
         class Compteur extends React.Component{
             constructor(props){
-                super(props)
+                super(props);
+                this.start = this.start.bind(this)
+                this.stop = this.stop.bind(this)
+                this.reset = this.reset.bind(this)
+                this.state = {
+                    count: 0,
+                    disabled: false,
+                    displayReset: false,
+                }
+
+                this.interval = null
+            }
+
+            start(){
+                console.log('start');
+                this.interval = setInterval(() => {
+                    if(this.state.count >= 20){
+                        this.setState({count: 0})
+                    }
+                    this.setState({count: this.state.count + 1})
+                    this.setState({displayReset: true})
+                }, 1000)
+
+                this.setState({disabled: true})
+            }
+            
+            stop(){
+                clearInterval(this.interval)
+                this.setState({disabled: false})
+            }
+
+            reset(){
+                this.setState({count: 0})
+                this.setState({displayReset : false})
             }
 
             render(){
                 return (
-                    <div>{this.props.count}</div>
+                    <div>
+                        <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +1</button>
+                        <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
+                        {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
+                        <p>{this.state.count}</p>
+                    </div>
+                )
+            }
+        }
+
+        class Compteur2 extends React.Component{
+            constructor(props){
+                super(props)
+                this.start = this.start.bind(this)
+                this.stop = this.stop.bind(this)
+                this.reset = this.reset.bind(this)
+                this.state = {
+                    count: 0,
+                    disabled: false,
+                    displayReset: false,
+                }
+                this.interval = null
+            }
+
+            start(){
+                console.log('start');
+                this.interval = setInterval(() => {
+                    if(this.state.count >= 20){
+                        this.setState({count: 0})
+                    }
+                    this.setState({count: this.state.count + 2})
+                    this.setState({displayReset: true})
+                }, 1000)
+                this.setState({disabled: true})
+            }
+            
+            stop(){
+                clearInterval(this.interval)
+                this.setState({disabled: false})
+            }
+
+            reset(){
+                this.setState({count: 0})
+                this.setState({displayReset : false})
+            }
+
+            render(){
+                return (
+                    <div>
+                        <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +1</button>
+                        <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
+                        {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
+                        <p>{this.state.count}</p>
+                    </div>
                 )
             }
         }
