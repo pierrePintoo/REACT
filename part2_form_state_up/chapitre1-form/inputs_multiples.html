@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class App extends React.Component{
+        constructor(props){
+            super(props)
+        }
+
+        render(){
+            return (
+                <Form />
+            )
+        }
+    }
+
+    class Form extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                number: '',
+                results: [],
+                isError: false
+                }
+
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSubmit = this.handleSubmit.bind(this)
+        }
+
+            handleChange(event) {
+                const { name, value } = event.target
+                this.setState({[name]: value})
+            }
+
+            handleSubmit(event) {
+
+                const { number, results } = this.state
+
+                let resultEnd = 0
+                let i = 0
+                while(resultEnd < 100){
+                    resultEnd = number * i
+                    i++
+                    console.log(i, resultEnd)
+                    if(resultEnd < 100){
+                        console.log('cc')
+                        this.setState({
+                            results: results.concat(number * i)
+                        })
+                    console.log(results, 'tab')
+                    }
+                }
+                event.preventDefault()
+            }
+
+        render() {
+            const listNumbers = this.state.results.map(result => <li>{result}</li>)
+            return (
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                        Saisissez un nombre
+                        <input 
+                            type="number"
+                            name='number'
+                            value={this.state.number}
+                            onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="Calculer" />
+                    </form>
+                    <ul>
+                        {listNumbers}
+                    </ul>
+                    {this.state.isError && <p>Vous n'avez pas entrer un nombre</p>}
+                </div>
+            
+            );
+        }
+    }
+
+        //Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
