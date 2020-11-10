@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class App extends React.Component{
+        constructor(props){
+            super(props)
+        }
+
+        render(){
+            return (
+                <Form />
+            )
+        }
+    }
+
+    class Form extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                name: '',
+                lastname: '',
+                users: [],
+                isError: false,
+                isEmpty: false
+                };
+
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+            handleChange(event) {
+                const { name, value } = event.target
+
+                // [name] JS inerprète le name comme valeur
+                // et cela permet d'avoir la bonne clé dans le state        
+                this.setState({ [name]: value });
+            }
+
+            handleSubmit(event) {
+                let userToAdd = this.state.name.toUpperCase() + ' ' + this.state.lastname.toUpperCase()
+                if(this.state.users.includes(userToAdd)){
+                    this.setState({isError: true})
+                    setTimeout(() => {
+                        this.setState({isError: false})
+                    }, 2000)
+                } else if(userToAdd == " ") {
+                    this.setState({isEmpty: true})
+                    setTimeout(() => {
+                        this.setState({isEmpty: false})
+                    }, 2000)
+                } else {
+                    this.state.users.push(userToAdd)
+                }
+
+                event.preventDefault();
+            }
+
+        render() {
+            return (
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                        Username: {this.state.name}
+                        <input 
+                            type="text"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleChange} />
+                        </label>
+                        <label>
+                        Lastname: {this.state.lastname}
+                        <input 
+                            type="text"
+                            name='lastname'
+                            value={this.state.lastname}
+                            onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="Add" />
+                    </form>
+                    <div>
+                        <Users users={this.state.users} />
+                        {this.state.isEmpty && <p>Ce que vous avez rentrer est vide</p>}
+                        {this.state.isError && <p>L'utilisateur existe déjà</p>}
+                    </div>
+
+                </div>
+            
+            );
+        }
+    }
+
+
+    class Users extends React.Component{
+        constructor(props){
+            super(props)
+        }
+
+        render(){
+            return (
+                <div>{this.props.users}</div>
+            )
+        }
+    }
+
+        //Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
