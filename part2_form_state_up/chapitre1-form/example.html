@@ -117,8 +117,9 @@
         }
 
         render(){
+            const listUsers = this.props.users.map(user => <li>{user}</li>)
             return (
-                <div>{this.props.users}</div>
+                <div>{listUsers}</div>
             )
         }
     }
