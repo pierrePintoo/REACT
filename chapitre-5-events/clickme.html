@@ -29,7 +29,7 @@
             render(){
                 return (
                     <div>
-                        <Compteur/>
+                        <Compteur />
                         <Compteur2 />
                     </div>
                 )
@@ -44,6 +44,7 @@
                 this.reset = this.reset.bind(this)
                 this.state = {
                     count: 0,
+                    binary: 0,
                     disabled: false,
                     displayReset: false,
                 }
@@ -58,6 +59,7 @@
                         this.setState({count: 0})
                     }
                     this.setState({count: this.state.count + 1})
+                    this.setState({binary: parseInt(this.state.count).toString(2)})
                     this.setState({displayReset: true})
                 }, 1000)
 
@@ -80,7 +82,7 @@
                         <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +1</button>
                         <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
                         {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
-                        <p>{this.state.count}</p>
+                        <p>{this.state.binary}</p>
                     </div>
                 )
             }
@@ -125,8 +127,8 @@
             render(){
                 return (
                     <div>
-                        <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +1</button>
-                        <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +1</button>
+                        <button name="Hello React" onClick={this.start} disabled={this.state.disabled}>Start +2</button>
+                        <button name="Hello React" onClick={this.stop} disabled={!this.state.disabled}>Stop +2</button>
                         {this.state.displayReset && <button name="Hello React" onClick={this.reset}>Reset</button>}
                         <p>{this.state.count}</p>
                     </div>
