@@ -64,7 +64,7 @@
                     setTimeout(() => {
                         this.setState({isError: false})
                     }, 2000)
-                } else if(userToAdd == " ") {
+                } else if(userToAdd.replace(/\s+/, '').length == " ") {
                     this.setState({isEmpty: true})
                     setTimeout(() => {
                         this.setState({isEmpty: false})
