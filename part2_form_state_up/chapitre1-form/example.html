@@ -70,7 +70,7 @@
                         this.setState({isEmpty: false})
                     }, 2000)
                 } else {
-                    this.state.users.push(userToAdd)
+                    this.state.users.push(userToAdd.trim())
                 }
 
                 event.preventDefault()
