@@ -70,10 +70,21 @@
                         this.setState({isEmpty: false})
                     }, 2000)
                 } else {
-                    this.state.users.push(userToAdd.trim())
+                    this.setState(state => {
+                        const users = state.users.concat(userToAdd.trim())
+
+                        return {
+                            users,
+                            value: ''
+                        }
+                    })
                 }
 
                 event.preventDefault()
+            }
+
+            componentDidUpdate(){
+
             }
 
         render() {
