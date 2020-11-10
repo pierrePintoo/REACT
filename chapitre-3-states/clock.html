@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const TIME_STAR = 500
+        class App extends React.Component {
+            constructor(props){
+                super(props)
+                this.state = {
+                    status: false,
+                    change: true,
+                    steps: new Date
+                },
+
+                this.timer = 100
+                this.lignes = this.timer * 10
+                this.interval = null
+            }
+
+            componentDidMount(){
+                // this.interval = setInterval(() => {
+                //     this.setState({change: !this.state.change})
+                // }, this.timer)
+
+                setTimeout(() => {
+                        this.setState({change: !this.state.change})
+                }, this.lignes)
+            }
+
+            componentDidUpdate(prevProps, prevStates) {
+
+                if (this.state.change !== prevStates.change) {
+                    console.log( 'new state count :' , this.state.change, 'old state count',  prevStates.change)
+                    this.setState({steps: new Date})
+                }
+                setTimeout(() => {
+                    this.setState({setps: new Date}),
+                    this.setState({change: !this.state.change})
+                }, 1000)
+            }
+
+            render(){
+                return(
+                    <div>
+                        {this.state.steps.toTimeString()}
+                    </div>
+                ) 
+            }
+        }
+
+        //Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
