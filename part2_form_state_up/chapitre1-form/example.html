@@ -43,10 +43,10 @@
                 users: [],
                 isError: false,
                 isEmpty: false
-                };
+                }
 
-            this.handleChange = this.handleChange.bind(this);
-            this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSubmit = this.handleSubmit.bind(this)
         }
 
             handleChange(event) {
@@ -54,7 +54,7 @@
 
                 // [name] JS inerprète le name comme valeur
                 // et cela permet d'avoir la bonne clé dans le state        
-                this.setState({ [name]: value });
+                this.setState({ [name]: value })
             }
 
             handleSubmit(event) {
@@ -73,7 +73,7 @@
                     this.state.users.push(userToAdd)
                 }
 
-                event.preventDefault();
+                event.preventDefault()
             }
 
         render() {
