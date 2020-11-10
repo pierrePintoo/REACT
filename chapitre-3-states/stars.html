@@ -21,15 +21,16 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-
+        const TIME_STAR = 500
         class App extends React.Component {
             constructor(props){
                 super(props)
                 this.state = {
+                    status: false,
                     change: true,
                     steps: []
                 },
-                
+
                 this.timer = 500
                 this.lignes = this.timer * 10
                 this.interval = null
@@ -54,18 +55,50 @@
             }
 
             render(){
-                return <div>{this.state.steps}</div>
+                return(
+                    <div>
+                        // {[...Array(10).keys()].map(comp => <Barre key={comp} status={num === count} />)}
+                        <Barre />
+                    </div>
+                ) 
             }
         }
 
         class Barre extends React.Component{
             constructor(props){
                 super(props)
+                this.state = {
+                    star: '',
+                    count: 20,
+                    tab: []
+                }
+            }
+
+            draw(){
+                const interval = setInterval(() => {
+                    if(this.state.count > 0){
+                        this.setState({
+                            star: this.state.star + '*',
+                            count: this.state.count - 1
+                        })
+                    } else {
+                        clearInterval(interval)
+                    }
+                }, TIME_STAR)
+            }
+            
+            componentDidMount(){
+                this.draw()
+            }
+
+            componentDidUpdate(){
+                
             }
 
             render(){
+                const { star } = this.state
                 return (
-                    <p>********************</p>
+                    <div>{star}</div>
                 )
             }
         }

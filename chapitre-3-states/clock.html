@@ -21,7 +21,6 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const TIME_STAR = 500
         class App extends React.Component {
             constructor(props){
                 super(props)
@@ -30,21 +29,18 @@
                     steps: new Date
                 },
 
-                this.timer = 100
-                this.lignes = this.timer * 10
-                this.interval = null
+                this.secondes = 1000
             }
 
             componentDidMount(){
                 setTimeout(() => {
                         this.setState({change: !this.state.change})
-                }, this.lignes)
+                }, this.secondes)
             }
 
             componentDidUpdate(prevProps, prevStates) {
 
                 if (this.state.change !== prevStates.change) {
-                    console.log( 'new state count :' , this.state.change, 'old state count',  prevStates.change)
                     this.setState({steps: new Date})
                 }
                 setTimeout(() => {
