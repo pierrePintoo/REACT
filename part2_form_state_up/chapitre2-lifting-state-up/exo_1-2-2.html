@@ -39,17 +39,20 @@
         }
 
         handleChange(value, base) {
-            
-            if (base === 'decimal' && typeof parseInt(value) === "number"){
+            let valueNumber = parseInt(value)
+            console.log(!isNaN(valueNumber))
+            if (base === 'decimal' && !isNaN(valueNumber)){
                 this.setState({
-                    binary: this.changeBase(value, 10, 2),
-                    decimal: value
+                    binary: this.changeBase(valueNumber, 10, 2),
+                    decimal: valueNumber
                     })
-            } else if (base === 'binary' && typeof parseInt(value) === "number"){
+            } else if (base === 'binary' && !isNaN(valueNumber)){
                 this.setState({
-                    decimal: this.changeBase(value, 2, 10),
-                    binary: value
+                    decimal: this.changeBase(valueNumber, 2, 10),
+                    binary: valueNumber
                 })
+            } else {
+                this.setState({error: true})
             }
 
         }
