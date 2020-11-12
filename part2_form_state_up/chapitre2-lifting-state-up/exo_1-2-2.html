@@ -34,8 +34,8 @@
             this.handleChange = this.handleChange.bind(this)
         }
 
-        changeBase(num, b1, b2){
-            return num == '' ? '' : parseInt(num, b1).toString(b2) ;
+        changeBase(value, baseStart, baseEnd){
+            return parseInt(value, baseStart).toString(baseEnd) ;
         }
 
         handleChange(value, base) {
