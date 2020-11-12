@@ -26,28 +26,44 @@
         constructor(props) {
             super(props);
             this.state = {
-                number: 0,
-                base: "Binaire",
-                binary: ''
+                binary: '',
+                decimal: '',
+                error: false
             }
 
             this.handleChange = this.handleChange.bind(this)
         }
 
-            handleChange(number) {
-                this.setState({base: "Binaire", number})
-                this.setState({binary: (number >>> 0).toString(2) })
+        changeBase(num, b1, b2){
+            return num == '' ? '' : parseInt(num, b1).toString(b2) ;
+        }
+
+        handleChange(value, base) {
+            
+            if (base === 'decimal' && typeof parseInt(value) === "number"){
+                this.setState({
+                    binary: this.changeBase(value, 10, 2),
+                    decimal: value
+                    })
+            } else if (base === 'binary' && typeof parseInt(value) === "number"){
+                this.setState({
+                    decimal: this.changeBase(value, 2, 10),
+                    binary: value
+                })
             }
 
+        }
 
         render() {
-            const {base, number, binary } = this.state
-
+            const { binary, decimal, error } = this.state
+            console.log(binary, 'binaire')
+            console.log(decimal, 'decimal')
             return (
                 
                 <div>
-                    <BaseNumberInput base="Decimal" onChangeBase={this.handleChange} />
-                    <BaseNumberInput base="Binaire" number={binary} onChangeBase={this.handleChange} />
+                    <BaseNumberInput base="decimal" number={decimal} onChangeBase={(value, base) => this.handleChange(value, base)} />
+                    <BaseNumberInput base="binary" number={binary} onChangeBase={(value, base) => this.handleChange(value, base)} />
+                    {error && <p>Vous avez entrer autre chose qu'un nombre</p>}
                 </div>
             
             );
@@ -63,19 +79,20 @@
         }
 
         handleChange(e){
-            this.props.onChangeBase(e.target.value)
+            const { value, name } = e.target
+            this.props.onChangeBase(value, name)
         }
 
 
         render(){
-            const {number, base} = this.props
+            const { number, base } = this.props
 
             return (
                 <div>
                     <form>
                     <label>
                         <legend>Saisissez le nombre en {base} :</legend>
-                        <input type="number" value={number} onChange={this.handleChange} />
+                        <input type="text" name={base} value={number} onChange={this.handleChange} />
                     </label>
                     </form>
                 </div>
