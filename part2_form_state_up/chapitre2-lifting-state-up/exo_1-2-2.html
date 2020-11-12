@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                number: 0,
+                base: "Binaire",
+                binary: ''
+            }
+
+            this.handleChange = this.handleChange.bind(this)
+        }
+
+            handleChange(number) {
+                this.setState({base: "Binaire", number})
+                this.setState({binary: (number >>> 0).toString(2) })
+            }
+
+
+        render() {
+            const {base, number, binary } = this.state
+
+            return (
+                
+                <div>
+                    <BaseNumberInput base="Decimal" onChangeBase={this.handleChange} />
+                    <BaseNumberInput base="Binaire" number={binary} onChangeBase={this.handleChange} />
+                </div>
+            
+            );
+        }
+    }
+
+
+    class BaseNumberInput extends React.Component{
+        constructor(props){
+            super(props),
+            this.state = {
+
+            }
+
+            this.handleChange = this.handleChange.bind(this)
+        }
+
+        handleChange(e){
+
+
+            this.props.onChangeBase(e.target.value)
+        }
+
+
+        render(){
+            const {number, base} = this.props
+
+            return (
+                <div>
+                    <form>
+                    <label>
+                        <legend>Saisissez le nombre en {base} :</legend>
+                        <input type="number" value={number} onChange={this.handleChange} />
+                    </label>
+                    </form>
+                </div>
+            )
+        }
+    }
+        //Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

@@ -61,13 +61,14 @@
                 while(resultEnd < 100){
                     resultEnd = number * i
                     i++
-                    console.log(i, resultEnd)
+                    // console.log(i, resultEnd)
                     if(resultEnd < 100){
-                        console.log('cc')
+                        console.log(results.concat(number * i))
+
                         this.setState({
                             results: results.concat(number * i)
                         })
-                    console.log(results, 'tab')
+                    // console.log(this.state.results, 'tab')
                     }
                 }
                 event.preventDefault()
