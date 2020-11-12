@@ -40,7 +40,6 @@
 
         handleChange(value, base) {
             let valueNumber = parseInt(value)
-            console.log(!isNaN(valueNumber))
             if (base === 'decimal' && !isNaN(valueNumber)){
                 this.setState({
                     binary: this.changeBase(valueNumber, 10, 2),
