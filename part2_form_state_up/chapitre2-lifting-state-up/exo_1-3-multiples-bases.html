@@ -53,7 +53,6 @@
                     numberConverted: value
                 })
             } else if(isNaN(value) && base > 10){
-                console.log('caca')
                 this.setState({
                     decimal: this.changeBase(value, this.state.baseChosen, 10),
                     numberConverted: value
@@ -78,11 +77,16 @@
                 
                 <div>
                     <BaseNumberInput base="decimal" number={decimal} onChangeBase={(value, base) => this.handleChange(value, base)} />
-                    <select onChange={this.handleBaseChange}>
-                        {this.state.bases.map((b) => 
-                            <option value={b}>{b}</option>
-                        )}
-                    </select>
+                    <br />
+                    <label>
+                    Choisi une base : 
+                        <select onChange={this.handleBaseChange}>
+                            {this.state.bases.map((b) => 
+                                <option value={b}>{b}</option>
+                            )}
+                        </select>
+                    </label>
+                    <br />
                     <BaseNumberInput base={baseChosen} number={numberConverted} onChangeBase={(value, base) => this.handleChange(value, base)} />
                     {errorMessage}
                 </div>
