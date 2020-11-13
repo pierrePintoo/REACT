@@ -6,36 +6,36 @@ constructor(props){
     this.state = {
         money: '',
         message: '',
-        tokens: {
-            "twoHundreds": {
+        tokens: [
+            {
                 "amount": 200,
                 "quantity": 0
             },
-            "oneHundreds": {
+            {
                 "amount": 100,
                 "quantity": 0
             },
-            "fifty": {
+            {
                 "amount": 50,
                 "quantity": 0
             },
-            "twenty": {
+            {
                 "amount": 20,
                 "quantity": 0
             },
-            "ten": {
+            {
                 "amount": 10,
                 "quantity": 0
             },
-            "five": {
+            {
                 "amount": 5,
                 "quantity": 0
             },
-            "one": {
+            {
                 "amount": 1,
                 "quantity": 0
             }
-        },
+        ],
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -49,16 +49,16 @@ handleChange(e){
 handleSubmit(e){
     const { tokens, money } = this.state
     let value = money
-    
+
     if(value >= 1 && value % 1 === 0){
-        for(const token in tokens){
-            tokens[token].quantity = 0
-            if(value >= tokens[token].amount){
+        for(let i = 0; i < tokens.length; i++){
+            tokens[i].quantity = 0
+            if(value >= tokens[i].amount){
                 let stateCopy = Object.assign({}, this.state)
-                stateCopy.tokens[token].quantity = Math.floor(value / tokens[token].amount)
+                stateCopy.tokens[i].quantity = Math.floor(value / tokens[i].amount)
                 this.setState(stateCopy)
         
-                value = value % tokens[token].amount
+                value = value % tokens[i].amount
             }
         }
     } else {
