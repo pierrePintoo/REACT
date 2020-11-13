@@ -62,7 +62,7 @@ handleSubmit(e){
             }
         }
     } else {
-        this.setState({message: 'Vous n\'avez pas entrer un nombre'})
+        this.setState({message: 'Vous n\'avez pas entrer un nombre entier'})
         setTimeout(() => {
             this.setState({message: ''})
         }, 2000)
