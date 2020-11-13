@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    const BASES = [2, 3, 7, 16]
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                numberConverted: '',
+                decimal: '',
+                errorMessage: '',
+                bases: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                baseChosen: 2,
+                message: '',
+            }
+
+            this.handleChange = this.handleChange.bind(this),
+            this.handleBaseChange = this.handleBaseChange.bind(this)
+        }
+
+        changeBase(value, baseStart, baseEnd){
+            return parseInt(value, baseStart).toString(baseEnd)
+        }
+
+        handleChange(value, base) {
+            if(base === 'decimal' && !isNaN(value)){
+                this.setState({
+                    numberConverted: this.changeBase(value, 10, this.state.baseChosen),
+                    decimal: value
+                })
+            } else if(!isNaN(value) && base <= 10) {
+                this.setState({
+                    decimal: this.changeBase(value, this.state.baseChosen, 10),
+                    numberConverted: value
+                })
+            } else if(isNaN(value) && base > 10){
+                this.setState({
+                    decimal: this.changeBase(value, this.state.baseChosen, 10),
+                    numberConverted: value
+                })
+            } else {
+                this.setState({errorMessage: 'Vous n\'avez pas entrer un nombre'})
+                setTimeout(() => {
+                    this.setState({errorMessage: ''})
+                }, 2000)
+            }
+        }
+
+        handleBaseChange(e){
+            const { value } = e.target
+            this.setState({baseChosen: value})
+        }
+
+        render() {
+            const { message, number, base, conversion } = this.state
+            const messageError = {
+                    message,
+                    color: { color: 'red', fontSize: '15px', margin: '5%'}
+                }
+
+            const { bases } = this.props
+
+            return (
+                // {... messageError } -> Il a décompacter l'objet
+                <div>
+                    <Wrapper message={message && <Message { ...messageError }/>}>
+                        <BaseNumberInput 
+                            base={10}
+                            number={conversion}
+                            onChangeBase={ num => this.onChangeBase(num, 10, base)}
+                        />
+                        <BaseNumberInput 
+                            base={10}
+                            number={conversion}
+                            onChangeBase={ num => this.onChangeBase(num, 10, base)}
+                        />
+
+                        { bases.length}
+                    </Wrapper>
+                </div>
+            
+            );
+        }
+    }
+
+    class Wrapper extends React.Component{
+        render(){
+            const box = {
+                width: '300px',
+                margin: '5px'
+            }
+
+            const container = {}
+        }
+    }
+
+
+    class BaseNumberInput extends React.Component{
+        constructor(props){
+            super(props),
+            this.handleChange = this.handleChange.bind(this)
+        }
+
+        handleChange(e){
+            const { value, name } = e.target
+            this.props.onChangeBase(value, name)
+            console.log(value)
+        }
+
+
+        render(){
+            // Changement d'état des variables dans le parent
+            const { number, base } = this.props
+
+            // Exemple de styles qui sera uniquement lié au composant
+            const label = {padding: '5px', display: 'block'}
+            return (
+                <div>
+                    <form>
+                    <label>
+                        <legend style={label}>Nombre en base {base} :</legend>
+                        <input type="text" name={base} value={number} onChange={this.handleChange} />
+                    </label>
+                    </form>
+                </div>
+            )
+        }
+    }
+        //Rendu dans le DOM
+        ReactDOM.render(
+            <App bases={BASES} />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
