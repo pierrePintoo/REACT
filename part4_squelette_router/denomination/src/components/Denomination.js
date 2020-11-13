@@ -41,12 +41,24 @@ constructor(props){
 }
 
 handleChange(e){
+    let { value } = e.target
+    const { tokens } = this.state
+
+    for(const token in tokens){
+        if(value >= tokens[token].amount){
+            let stateCopy = Object.assign({}, this.state)
+            stateCopy.tokens[token].quantity = Math.floor(value / tokens[token].amount)
+            this.setState(stateCopy)
     
+            value = value % tokens[token].amount
+        }
+    }
 }
   render(){
       const { tokens } = this.state
+
       const listTokens = Object.keys(tokens).map((keyName, i) => (
-      <li key={i}>key: {i} {tokens[keyName].amount}</li>
+      <li key={i}>Number of {tokens[keyName].amount} tokens : {tokens[keyName].quantity}</li>
       ))
 
     return(
