@@ -5,6 +5,7 @@ constructor(props){
     super(props)
     this.state = {
         money: '',
+        message: '',
         tokens: {
             "twoHundreds": {
                 "amount": 200,
@@ -38,25 +39,38 @@ constructor(props){
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 }
 
 handleChange(e){
-    let { value } = e.target
-    const { tokens } = this.state
+    this.setState({money: e.target.value})
+}
 
-    for(const token in tokens){
-        if(value >= tokens[token].amount){
-            let stateCopy = Object.assign({}, this.state)
-            stateCopy.tokens[token].quantity = Math.floor(value / tokens[token].amount)
-            this.setState(stateCopy)
+handleSubmit(e){
+    const { tokens, money } = this.state
+    let value = money
     
-            value = value % tokens[token].amount
+    if(value >= 1 && value % 1 === 0){
+        for(const token in tokens){
+            tokens[token].quantity = 0
+            if(value >= tokens[token].amount){
+                let stateCopy = Object.assign({}, this.state)
+                stateCopy.tokens[token].quantity = Math.floor(value / tokens[token].amount)
+                this.setState(stateCopy)
+        
+                value = value % tokens[token].amount
+            }
         }
+    } else {
+        this.setState({message: 'Vous n\'avez pas entrer un nombre'})
+        setTimeout(() => {
+            this.setState({message: ''})
+        }, 2000)
     }
+    e.preventDefault()
 }
   render(){
-      const { tokens } = this.state
-
+      const { tokens, message } = this.state
       const listTokens = Object.keys(tokens).map((keyName, i) => (
       <li key={i}>Number of {tokens[keyName].amount} tokens : {tokens[keyName].quantity}</li>
       ))
@@ -64,10 +78,14 @@ handleChange(e){
     return(
       <div>
           <h1>Send Money !</h1>
-          <label>
-              Enter your money to get change
-              <input type="number" onChange={this.handleChange}/>
-          </label>
+          <p>{message}</p>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+                Enter your money to get change
+                <input onChange={this.handleChange}/>
+            </label>
+            <button type="submit">Give the money</button>
+          </form>
             {listTokens}
       </div>
     )
