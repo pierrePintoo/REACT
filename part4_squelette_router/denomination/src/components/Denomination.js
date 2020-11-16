@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import styled from 'styled-components'
 class Denomination extends Component{
 constructor(props){
     super(props)
@@ -72,8 +73,15 @@ handleSubmit(e){
   render(){
       const { tokens, message } = this.state
       const listTokens = Object.keys(tokens).map((keyName, i) => (
-      <li key={i}>Number of {tokens[keyName].amount} tokens : {tokens[keyName].quantity}</li>
+        <li key={i}>Number of {tokens[keyName].amount} tokens : {tokens[keyName].quantity}</li>
       ))
+
+        const Pre = styled.h1`
+            color: palevioletred;
+            font-size: 1em;
+        `;
+
+
 
     return(
       <div>
@@ -81,7 +89,7 @@ handleSubmit(e){
           <p>{message}</p>
           <form onSubmit={this.handleSubmit}>
             <label>
-                Enter your money to get change
+                <Pre>Enter your money to get change</Pre>
                 <input onChange={this.handleChange}/>
             </label>
             <button type="submit">Give the money</button>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const TestState = (props) => {
+        // Définition du state avec useState 2 paramètres respectivement:
+        // 1. Variable pour le state.
+        // 2. Fonction qui mettra à jour le state.
+        const [count, setCount] = React.useState(0);
+        const [life, setLife] = React.useState(false)
+        const [active, setActive] = React.useState(true)
+        let timeout
+
+        React.useEffect(() => {
+            if(active === true){
+                timeout = setTimeout(() => {
+                setCount(count + 1)
+                }, 1000)
+            } else {
+                clearTimeout(timeout)
+            }
+        }, [count, active])
+
+
+        React.useEffect(() => {
+            setActive(!active)
+        }, [life])
+
+        return (
+            <div>
+                <button onClick={() => {setLife(!life)}} >
+                    Toggle counter
+                </button>
+                <button onClick={() => {setActive(!active)}}>
+                    Start/Stop the counter    
+                </button>
+                {life && <p>{count}</p>}
+            </div>
+            );
+        }
+
+        ReactDOM.render(
+        <TestState />,
+        document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
