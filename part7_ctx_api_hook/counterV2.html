@@ -21,34 +21,45 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
+
+        const App = (props) => {
+            const [display, setDisplay] = React.useState(true)
+
+
+            return (
+                <div>
+                    <button onClick={() => setDisplay(!display)}>
+                        Toggle Counter
+                    </button>
+                    {display && <Counter />}
+                </div>
+            )
+        }
+
+        let interval = null
         const Counter = (props) => {
         // Définition du state avec useState 2 paramètres respectivement:
         // 1. Variable pour le state.
         // 2. Fonction qui mettra à jour le state.
         const [count, setCount] = React.useState(0);
-        const [life, setLife] = React.useState(false)
-        const [active, setActive] = React.useState(true)
+        const [active, setActive] = React.useState(false)
 
         React.useEffect(() => {
+            clearInterval(interval)
             if(active === true){
-                setTimeout(() => {
-                    setCount(count + 1)
+                interval = setInterval(() => {
+                    setCount(count => count + 1)
                 }, 1000)
-            } else {
-                clearTimeout(timeout)
-            }
+            } 
         }, [count, active])
 
 
         React.useEffect(() => {
-            setActive(!active)
-        }, [life])
+           return () => clearInterval(interval)
+        }, [])
 
         return (
             <div>
-                <button onClick={() => {setLife(!life)}} >
-                    Toggle counter
-                </button>
                 <button onClick={() => {setActive(true)}} disabled={active}>
                     Start 
                 </button>
@@ -56,18 +67,18 @@
                     Stop
                 </button>
                 {count >= 1 &&<button onClick={() => {
-                    setCount(0)
-                    setActive(true)
+                        setCount(0)
+                        setActive(true)
                     }}>
                     Reset
                 </button>}
-                {life && <p>{count}</p>}
+                <p>{count}</p>
             </div>
             );
         }
 
         ReactDOM.render(
-        <Counter />,
+        <App />,
         document.getElementById('root')
         );
     </script>
