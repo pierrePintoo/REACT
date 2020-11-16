@@ -28,6 +28,7 @@
                 </React.Fragment>
             )
         }
+        
         let listUsers = null
         const Search = (props) => {
             // Définition du state avec useState 2 paramètres respectivement:
@@ -61,7 +62,7 @@
                             setUsersToDisplay(usersToDisplay => [...usersToDisplay, users[i].name])
                         }
                     }
-                    
+
                     listUsers = usersToDisplay.map((user, i) => <li key={i}>{user}</li>)
                 }
             }, [value])
