@@ -21,21 +21,22 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const Counter = (props) => {
+        const TestState = (props) => {
         // Définition du state avec useState 2 paramètres respectivement:
         // 1. Variable pour le state.
         // 2. Fonction qui mettra à jour le state.
         const [count, setCount] = React.useState(0);
         const [life, setLife] = React.useState(false)
         const [active, setActive] = React.useState(true)
+        let timeout
 
         React.useEffect(() => {
             if(active === true){
-                setTimeout(() => {
+                timeout = setTimeout(() => {
                 setCount(count + 1)
                 }, 1000)
             } else {
-                clearTimeout()
+                clearTimeout(timeout)
             }
         }, [count, active])
 
@@ -49,8 +50,14 @@
                 <button onClick={() => {setLife(!life)}} >
                     Toggle counter
                 </button>
-                <button onClick={() => {setActive(!active)}}>
-                    Start/Stop the counter    
+                <button onClick={() => {setActive(true)}} disabled={active}>
+                    Start 
+                </button>
+                <button onClick={() => {setActive(false)}} disabled={!active}>
+                    Stop
+                </button>
+                <button>
+                    Reset
                 </button>
                 {life && <p>{count}</p>}
             </div>
@@ -58,7 +65,7 @@
         }
 
         ReactDOM.render(
-        <Counter />,
+        <TestState />,
         document.getElementById('root')
         );
     </script>
