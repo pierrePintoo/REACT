@@ -56,7 +56,7 @@
                     setUsersToDisplay([])
                     console.log('hello', usersToDisplay)
                     for(let i = 0; i < users.length; i++){
-                        if(users[i].name.includes(value) && !usersToDisplay.includes(users[i].name)){
+                        if(users[i].name.includes(value)){
                             setUsersToDisplay(usersToDisplay => [...usersToDisplay, users[i].name])
                             console.log(usersToDisplay)
                         }
