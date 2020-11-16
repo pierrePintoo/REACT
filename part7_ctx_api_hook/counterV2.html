@@ -21,19 +21,18 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const TestState = (props) => {
+        const Counter = (props) => {
         // Définition du state avec useState 2 paramètres respectivement:
         // 1. Variable pour le state.
         // 2. Fonction qui mettra à jour le state.
         const [count, setCount] = React.useState(0);
         const [life, setLife] = React.useState(false)
         const [active, setActive] = React.useState(true)
-        let timeout
 
         React.useEffect(() => {
             if(active === true){
-                timeout = setTimeout(() => {
-                setCount(count + 1)
+                setTimeout(() => {
+                    setCount(count + 1)
                 }, 1000)
             } else {
                 clearTimeout(timeout)
@@ -56,16 +55,19 @@
                 <button onClick={() => {setActive(false)}} disabled={!active}>
                     Stop
                 </button>
-                <button>
+                {count >= 1 &&<button onClick={() => {
+                    setCount(0)
+                    setActive(true)
+                    }}>
                     Reset
-                </button>
+                </button>}
                 {life && <p>{count}</p>}
             </div>
             );
         }
 
         ReactDOM.render(
-        <TestState />,
+        <Counter />,
         document.getElementById('root')
         );
     </script>
