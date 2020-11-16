@@ -28,6 +28,7 @@
                 </React.Fragment>
             )
         }
+        let listUsers = null
         const Search = (props) => {
             // Définition du state avec useState 2 paramètres respectivement:
             // 1. Variable pour le state.
@@ -53,16 +54,15 @@
             
             React.useEffect(() => {
                 if(users.length > 0){
-                    setUsersToDisplay([])
-                    console.log('hello', usersToDisplay)
+                    setUsersToDisplay(usersToDisplay => [])
+
                     for(let i = 0; i < users.length; i++){
                         if(users[i].name.includes(value)){
                             setUsersToDisplay(usersToDisplay => [...usersToDisplay, users[i].name])
-                            console.log(usersToDisplay)
                         }
                     }
-                    console.log(usersToDisplay)
-                // console.log(usersToDisplay)
+                    
+                    listUsers = usersToDisplay.map((user, i) => <li key={i}>{user}</li>)
                 }
             }, [value])
             
@@ -73,18 +73,20 @@
                             Rerchercher un utilisateur
                             <input onChange={e => setValue(e.target.value)}/>    
                         </label>
-                        <Users />
+                        <Users listUsers={listUsers}/>
                     </div>
                     );
                 return <p>Load data...</p>
         }
 
         const Users = (props) => {
-            return (
-                <React.Fragment>
-                    <p>Hello</p>
-                </React.Fragment>
-            )
+                return (
+                    <React.Fragment>
+                            {
+                                <ul>{listUsers}</ul>
+                            }
+                    </React.Fragment>
+                )
         }
         ReactDOM.render(
         <App />,
