@@ -25,7 +25,7 @@
         const initialState = {count: 0, number1: 0, number2: 0, message: '', type: ''};
 
         const reducer = (state, action) => {
-            const {type, number1, number2} = action
+            const { type, number1, number2 } = action
             console.log(state, action)
             if(isNaN(number1) || isNaN(number2)){
                 return {...state, message: 'Vous n\'avez pas entrer un nombre'}
@@ -53,7 +53,7 @@
             const [input1, setInput1] = React.useState();
             const [input2, setInput2] = React.useState();
 
-            const { count, message, number1, number2 } = state
+            const { count, message } = state
             return (
                 <React.Fragment>
                     <label>
