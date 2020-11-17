@@ -22,7 +22,7 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        const initialState = {count: 0, number1: 0, number2: 0, message: '', type: ''};
+        const initialState = {count: 0, number1: 0, number2: 0, message: ''};
 
         const reducer = (state, action) => {
             const { type, number } = action
@@ -60,12 +60,22 @@
                 <React.Fragment>
                     <label>
                         Nombre 1
-                        <input onChange={(e) => dispatch({type: "updateN1", number: parseInt(e.target.value, 10)})}/>
+                        <input 
+                        onChange={(e)=> 
+                        dispatch({
+                            type: "updateN1",
+                            number: parseInt(e.target.value, 10)})}
+                            />
                     </label>
                     <br />
                     <label>
                         Nombre 2
-                        <input onChange={(e) => dispatch({type: "updateN2", number: parseInt(e.target.value, 10)})}/>
+                        <input 
+                        onChange={(e)=> 
+                        dispatch({
+                            type: "updateN2",
+                            number: parseInt(e.target.value, 10)})}
+                            />
                     </label>
                     <br />
                     <button onClick={() => dispatch({type: 'incr'})}>+</button>
