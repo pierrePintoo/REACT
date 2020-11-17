@@ -27,28 +27,31 @@
         const reducer = (state, action) => {
             const {type, number1, number2} = action
 
-            switch (type) {
-                    case 'incr':
-                    if(isNaN(number1) || isNaN(number2)){
-                        return {...state, message: 'Vous n\'avez pas entrer un nombre'}
-                    } else {
-                        return {...state, count: number1 + number2};
-                    }                        
-                    case 'mult':
-                        return {...state, count: number1 * number2};
+            if(isNaN(number1) || isNaN(number2)){
+                return {...state, message: 'Vous n\'avez pas entrer un nombre'}
+            } else {
+                switch (type) {
+                        case 'incr':
+                            return {...state, count: number1 + number2};
+                        
+                        case 'mult':
+                            return {...state, count: number1 * number2};
 
-                    case 'reset':
-                        return {...state, count: 0};
-                    
-                    default:
-                        return state;
-                }
+                        case 'reset':
+                            return {...state, count: 0};
+                        
+                        default:
+                            return state;
+                    }
+            }
         }
 
         function Calculator() {
             const [state, dispatch] = React.useReducer(reducer, initialState);
             const [input1, setInput1] = React.useState();
             const [input2, setInput2] = React.useState();
+
+            const { count, message } = state
             return (
                 <React.Fragment>
                     <label>
@@ -64,8 +67,8 @@
                     <button onClick={() => dispatch({type: 'incr', number1: parseInt(input1), number2: parseInt(input2)})}>+</button>
                     <button onClick={() => dispatch({type: 'mult', number1: parseInt(input1), number2: parseInt(input2)})}>*</button>
                     <button onClick={() => dispatch({type: 'reset'})}>RESET</button>
-                    <p>Resultat : {state.count}</p>
-                    {state.message}
+                    <p>Resultat : {count}</p>
+                    {message}
                 </React.Fragment>
             );
         }
