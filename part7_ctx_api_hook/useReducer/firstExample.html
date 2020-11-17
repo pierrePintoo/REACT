@@ -22,14 +22,16 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        const initialState = {count: 0, message: ''};
+        const initialState = {count: 0, number1: 0, number2: 0, message: '', type: ''};
 
         const reducer = (state, action) => {
             const {type, number1, number2} = action
-
+            console.log(state, action)
             if(isNaN(number1) || isNaN(number2)){
                 return {...state, message: 'Vous n\'avez pas entrer un nombre'}
             } else {
+                state.number1 = number1
+                state.number2 = number2
                 switch (type) {
                         case 'incr':
                             return {...state, count: number1 + number2};
@@ -51,22 +53,22 @@
             const [input1, setInput1] = React.useState();
             const [input2, setInput2] = React.useState();
 
-            const { count, message } = state
+            const { count, message, number1, number2 } = state
             return (
                 <React.Fragment>
                     <label>
                         Nombre 1
-                        <input onChange={event => setInput1(event.target.value)}/>
+                        <input onChange={(e) => dispatch({...state, number1: parseInt(e.target.value, 10)})}/>
                     </label>
                     <br />
                     <label>
                         Nombre 2
-                        <input onChange={event => setInput2(event.target.value)}/>
+                        <input onChange={(e) => dispatch({...state, number2: parseInt(e.target.value, 10)})}/>
                     </label>
                     <br />
-                    <button onClick={() => dispatch({type: 'incr', number1: parseInt(input1), number2: parseInt(input2)})}>+</button>
-                    <button onClick={() => dispatch({type: 'mult', number1: parseInt(input1), number2: parseInt(input2)})}>*</button>
-                    <button onClick={() => dispatch({type: 'reset'})}>RESET</button>
+                    <button onClick={() => dispatch({...state, type: 'incr'})}>+</button>
+                    <button onClick={() => dispatch({...state, type: 'mult'})}>*</button>
+                    <button onClick={() => dispatch({...state, type: 'reset'})}>RESET</button>
                     <p>Resultat : {count}</p>
                     {message}
                 </React.Fragment>
