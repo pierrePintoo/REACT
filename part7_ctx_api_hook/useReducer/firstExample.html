@@ -50,8 +50,6 @@
 
         function Calculator() {
             const [state, dispatch] = React.useReducer(reducer, initialState);
-            const [input1, setInput1] = React.useState();
-            const [input2, setInput2] = React.useState();
 
             const { count, message } = state
             return (
