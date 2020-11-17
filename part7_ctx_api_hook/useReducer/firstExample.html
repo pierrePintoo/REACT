@@ -22,38 +22,50 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        const initialState = {count: 0};
+        const initialState = {count: 0, message: ''};
 
         const reducer = (state, action) => {
+            const {type, number1, number2} = action
 
-        switch (action.type) {
-                case 'incr':
-                    return {count: state.count + 1};
+            switch (type) {
+                    case 'incr':
+                    if(isNaN(number1) || isNaN(number2)){
+                        return {...state, message: 'Vous n\'avez pas entrer un nombre'}
+                    } else {
+                        return {...state, count: number1 + number2};
+                    }                        
+                    case 'mult':
+                        return {...state, count: number1 * number2};
+
+                    case 'reset':
+                        return {...state, count: 0};
                     
-                case 'decr':
-                    return {count: state.count - 1};
-
-                default:
-                    return state;
-            }
+                    default:
+                        return state;
+                }
         }
 
         function Calculator() {
             const [state, dispatch] = React.useReducer(reducer, initialState);
+            const [input1, setInput1] = React.useState();
+            const [input2, setInput2] = React.useState();
             return (
                 <React.Fragment>
                     <label>
                         Nombre 1
-                        <input onChange={() => dispatch({type: ''})}/>
+                        <input onChange={event => setInput1(event.target.value)}/>
                     </label>
+                    <br />
                     <label>
                         Nombre 2
-                        <input />
+                        <input onChange={event => setInput2(event.target.value)}/>
                     </label>
-                    <button onClick={() => dispatch({type: 'incr'})}>+</button>
-                    <button onClick={() => dispatch({type: 'mult'})}>*</button>
+                    <br />
+                    <button onClick={() => dispatch({type: 'incr', number1: parseInt(input1), number2: parseInt(input2)})}>+</button>
+                    <button onClick={() => dispatch({type: 'mult', number1: parseInt(input1), number2: parseInt(input2)})}>*</button>
                     <button onClick={() => dispatch({type: 'reset'})}>RESET</button>
                     <p>Resultat : {state.count}</p>
+                    {state.message}
                 </React.Fragment>
             );
         }
