@@ -25,19 +25,17 @@
         const initialState = {count: 0, number1: 0, number2: 0, message: '', type: ''};
 
         const reducer = (state, action) => {
-            const { type, number1, number2 } = action
-
+            const { type, number } = action
+            console.log(state)
             if(isNaN(state.number1) || isNaN(state.number2)){
                 return {...state, message: 'Vous n\'avez pas entrer un nombre'}
             } else {
                 switch (type) {
                         case 'updateN1':
-                            state.number1 = number1
-                            return state
-                        
+                            return {...state, number1: number};
+
                         case 'updateN2':
-                            state.number2 = number2
-                            return state
+                            return {...state, number2: number}
 
                         case 'incr':
                             return {...state, count: state.number1 + state.number2};
@@ -62,12 +60,12 @@
                 <React.Fragment>
                     <label>
                         Nombre 1
-                        <input onChange={(e) => dispatch({type: "updateN1", number1: parseInt(e.target.value, 10)})}/>
+                        <input onChange={(e) => dispatch({type: "updateN1", number: parseInt(e.target.value, 10)})}/>
                     </label>
                     <br />
                     <label>
                         Nombre 2
-                        <input onChange={(e) => dispatch({type: "updateN2", number2: parseInt(e.target.value, 10)})}/>
+                        <input onChange={(e) => dispatch({type: "updateN2", number: parseInt(e.target.value, 10)})}/>
                     </label>
                     <br />
                     <button onClick={() => dispatch({type: 'incr'})}>+</button>
