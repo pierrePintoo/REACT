@@ -27,21 +27,39 @@
         const reducer = (state, action) => {
             const { type, number } = action
             console.log(state)
-            if(isNaN(state.number1) || isNaN(state.number2)){
-                return {...state, message: 'Vous n\'avez pas entrer un nombre'}
-            } else {
+
                 switch (type) {
                         case 'updateN1':
-                            return {...state, number1: number};
+                            return {
+                                ...state, 
+                                number1: number
+                                };
 
                         case 'updateN2':
-                            return {...state, number2: number}
+                            return {
+                                ...state, 
+                                number2: number
+                                }
 
                         case 'incr':
-                            return {...state, count: state.number1 + state.number2};
+                            if(parseFloat(state.number1) != state.number1 || parseFloat(state.number2) != state.number2){
+                                return {...state, message: 'Vous n\'avez pas entrer un nombre'}
+                            } else {
+                                return {
+                                    ...state,
+                                    count: state.number1 + state.number2
+                                    };
+                            }
                         
                         case 'mult':
-                            return {...state, count: state.number1 * state.number2};
+                        if(parseFloat(state.number1) != state.number1 || parseFloat(state.number2) != state.number2){
+                                return {...state, message: 'Vous n\'avez pas entrer un nombre'}
+                            } else {
+                                return {
+                                    ...state,
+                                    count: state.number1 * state.number2
+                                    };
+                            }
 
                         case 'reset':
                             return {...state, count: 0};
@@ -49,7 +67,6 @@
                         default:
                             return state;
                     }
-            }
         }
 
         function Calculator() {
