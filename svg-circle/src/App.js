@@ -29,9 +29,10 @@ function App() {
     })
   }
   useEffect(() => {
-      console.log(circles)
-      if(circles.length > 0 && circles[circles.length - 1].id === 2){
-        console.log('WESH')  
+
+
+      if(circles.length > 0 && (circles[circles.length - 1].id / 7) % 1 === 0){
+        console.log('WESH')
         circles[circles.length - 1].name = "SQUARE"
       }
   }, [circles])
