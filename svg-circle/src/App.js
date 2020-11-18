@@ -10,21 +10,9 @@ function App() {
 
   const svgCircle = (id) => {
     if(id % 2 !== 0){
-      return(
-      <Transform>
-        <svg height="100" width="100" key={id}>
-          <circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle>
-          <text x="50" y="50">{id}</text>
-        </svg>
-      </Transform>
-    )
+      return <Transform><svg height="100" width="100" key={id}><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg></Transform>
       } else {
-        return (
-          <svg height="100" width="100" key={id}>
-            <circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle>
-            <text x="50" y="50">{id}</text>
-          </svg>
-        )
+        return <svg height="100" width="100" key={id}><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg>
       }
   }
   
@@ -38,13 +26,14 @@ function App() {
 
   const draw = () => {
       return circles.map((circle) => {
-            if(circle.name === "SQUARE"){
-              return svgRect(circle.id)
-            } else {
-              return svgCircle(circle.id)
-            }
+        if(circle.name === "SQUARE"){
+          return svgRect(circle.id)
+        } else {
+          return svgCircle(circle.id)
+        }
     })
   }
+
   useEffect(() => {
       if(circles.length > 0 && (circles[circles.length - 1].id / 7) % 1 === 0){
         circles[circles.length - 1].name = "SQUARE"
@@ -54,16 +43,15 @@ function App() {
   let Transform = styled.div`display: inline`
   if(animation === true){
     const transform = keyframes`
-    from {
-      transform: scaleX(1);
-    }
+      from {
+        transform: scaleX(1);
+      }
 
-    to {
-      transform: scaleX(2);
-    }
-  `;
+      to {
+        transform: scaleX(2);
+      }
+    `;
 
-    // Here we create a component that will rotate everything we pass in over two seconds
     Transform = styled.div`
       display: inline-block;
       animation: ${transform} 2s linear infinite;
