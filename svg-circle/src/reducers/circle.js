@@ -11,7 +11,10 @@ const reducer = (state, action) => {
                 circles: state.circles.concat({name: payload, id: state.circles.length})
             }
         case 'SHUFFLE':
-            return console.log('SHUFFLE')
+            return {
+                ...state,
+                circles: state.circles.sort(() => Math.random() - 0.5)
+            }
         case 'STOP_ODD':
             return console.log('STOP_ODD')
         case 'START_ODD':
