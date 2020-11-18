@@ -1,6 +1,8 @@
 import './App.css';
 import { Fragment, useReducer, useEffect } from 'react';
+
 import { initialState, reducer } from './reducers/circle';
+
 import { NoTransform, Transform } from './Styles/Circle'
 
 function App() {
