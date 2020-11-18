@@ -1,14 +1,14 @@
-const initialState = {nbCircles: 0}
+const initialState = {circles: []}
 export{initialState};
 
 const reducer = (state, action) => {
-    const {type} = action
+    const {type, payload} = action
     console.log(state)
     switch(type){
         case 'ADD_CIRCLE':
             return {
                 ...state,
-                nbCircles: state.nbCircles + 1
+                circles: state.circles.concat({name: payload, id: state.circles.length})
             }
         case 'SHUFFLE':
             return console.log('SHUFFLE')

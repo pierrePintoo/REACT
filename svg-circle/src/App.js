@@ -4,25 +4,26 @@ import { initialState, reducer } from './reducers/circle';
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const { nbCircles } = state
+  const { circles } = state
 
   const svg = (id) => {
-    return <svg height="100" width="100" ><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg>;
+    return <svg height="100" key={id} width="100" ><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg>;
 }
   
   const drawCircles = () => {
-    const circles = []
-    for(let i=0; i< nbCircles; i++){
-      circles.push(svg(i))
+    const circlesToDisplay = []
+    for(let i=0; i < Object.keys(circles).length; i++){
+      circlesToDisplay.push(svg(i))
     }
-    return circles
+    return circlesToDisplay
   }
   
   return (
     <Fragment>
       <div className="App">
         <h1>Hello to the svg circle project</h1>
-        <button onClick={e => dispatch({type:'ADD_CIRCLE'})}>ADD CIRCLE TEST</button>
+        <button onClick={e => dispatch({type:'ADD_CIRCLE', payload: 'CIRCLE'})}>ADD CIRCLE TEST</button>
+        <button onClick={e => dispatch({type:'ADD_CIRCLE', payload: 'CARRE'})}>ADD CIRCLE TEST</button>
         <br /> 
         {drawCircles().map((circle) => circle)}
       </div>
