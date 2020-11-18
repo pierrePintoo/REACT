@@ -15,13 +15,16 @@ const reducer = (state, action) => {
                 ...state,
                 circles: state.circles.sort(() => Math.random() - 0.5)
             }
-        case 'STOP_ODD':
+        case 'START_ODD':
             return {
                 ...state,
                 animation: true
             }
-        case 'START_ODD':
-            return console.log('START_ODD')
+        case 'STOP_ODD':
+            return {
+                ...state,
+                animation: false
+            }
         default:
             return state
     }
