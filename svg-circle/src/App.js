@@ -1,7 +1,7 @@
 import './App.css';
 import { Fragment, useReducer, useEffect } from 'react';
 import { initialState, reducer } from './reducers/circle';
-import styled, { keyframes } from 'styled-components';
+import { NoTransform, Transform } from './Styles/Circle'
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -10,7 +10,7 @@ function App() {
 
   const svgCircle = (id) => {
     if(id % 2 !== 0){
-      return <Transform><svg height="100" width="100" key={id}><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg></Transform>
+      return <Style><svg height="100" width="100" key={id}><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg></Style>
       } else {
         return <svg height="100" width="100" key={id}><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg>
       }
@@ -18,7 +18,7 @@ function App() {
   
   const svgRect = (id) => {
     if(id % 2 !== 0){
-      return  <Transform><svg width="200" key={id} height="100">hello<rect width="100" height="100" fill="blue"></rect>  <text x="50" y="50">{id}</text></svg></Transform> 
+      return  <Style><svg width="200" key={id} height="100">hello<rect width="100" height="100" fill="blue"></rect>  <text x="50" y="50">{id}</text></svg></Style> 
     } else {
       return <svg width="200" key={id} height="100">hello<rect width="100" height="100" fill="blue"></rect>  <text x="50" y="50">{id}</text></svg>
     }
@@ -40,24 +40,9 @@ function App() {
       }
   }, [circles])
 
-  let Transform = styled.div`display: inline`
+  let Style = NoTransform
   if(animation === true){
-    const transform = keyframes`
-      from {
-        transform: scaleX(1);
-      }
-
-      to {
-        transform: scaleX(2);
-      }
-    `;
-
-    Transform = styled.div`
-      display: inline-block;
-      animation: ${transform} 2s linear infinite;
-      padding: 2rem 1rem;
-      font-size: 1.2rem;
-    `;  
+    Style = Transform
   }
   
     return (
