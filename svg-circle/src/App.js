@@ -6,12 +6,14 @@ function App() {
 
   const { nbCircles } = state
 
-  const svg = <svg height="100" width="100" ><circle cx="50" cy="50" r="25" stroke="black" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">0</text></svg>
+  const svg = (id) => {
+    return <svg height="100" width="100" ><circle cx="50" cy="50" r="25" stroke="black" fill="green" class="sc-cOajty gxZIjd"></circle><text x="50" y="50">{id}</text></svg>;
+}
   
   const drawCircles = () => {
     const circles = []
     for(let i=0; i< nbCircles; i++){
-      circles.push(svg)
+      circles.push(svg(i))
     }
     return circles
   }
