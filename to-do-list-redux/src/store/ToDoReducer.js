@@ -14,11 +14,12 @@ const initialState = [
 ]
 
 export const ADD_TODO = 'ADD_TODO'
+export const UPDATE_TODO = 'UPDATE_TODO'
 
 const ToDoReducer = (state = initialState, action) => {
     // console.log(action.payload)
     switch(action.type){
-        case 'ADD_TODO':
+        case ADD_TODO:
             return [
                 ...state,
                 {
@@ -27,6 +28,14 @@ const ToDoReducer = (state = initialState, action) => {
                     completed: false
                 }
             ]
+        case UPDATE_TODO:
+            return state.map(todo => {
+                if (todo.id === action.payload.id) {
+                    return {...todo, ...action.payload}
+                } else {
+                    return todo
+                }
+            })
         default:
             return state
     }

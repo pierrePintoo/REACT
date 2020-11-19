@@ -25,6 +25,12 @@ export const ToDoList = ({todos, onToggle}) => {
 
 export const ToDoListStore = connect(
     (state) => ({
-        todos: state.todos
+        todos: state.todos,
+    }),
+    (disatch) => ({
+        onToggle: todo => disatch({
+            type: "UPDATE_TODO",
+            payload: {...todo, completed: !todo.completed}
+        })
     })
 )(ToDoList)
