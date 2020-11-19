@@ -12,6 +12,9 @@ const initialState = [
         completed: false
     }
 ]
+
+export const ADD_TODO = 'ADD_TODO'
+
 const ToDoReducer = (state = initialState, action) => {
     // console.log(action.payload)
     switch(action.type){
@@ -29,4 +32,4 @@ const ToDoReducer = (state = initialState, action) => {
     }
 }
 
-export default ToDoReducer
+export { ToDoReducer }
