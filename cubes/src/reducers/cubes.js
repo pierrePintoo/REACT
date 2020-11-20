@@ -10,34 +10,47 @@ export const initialState = {
   
   export const reducer = (state = initialState, action = {}) => {
     let cubes;
-    let cx = 0
-    console.log(state)
+    const { number } = state
+    // console.log(state)
     switch (action.type) {
   
       case EASTER_EGG:
   
       // numéro de la figure à transformer en carré
-        const { number } = action;
-  
+        const { payload } = action;
         return {
           ...state,
-          easter_eggs: state.easter_eggs.concat(number)
+          easter_eggs: state.easter_eggs.concat(payload)
         }
   
       case ADD_CUBE:
-        let cx = () => {
-          if(state.cubes[0] === undefined){
-            return 0
-          }
-          else {
-            return state.cubes[state.cubes.length - 1].cx + 3
-          }
-        }
+        // const CX_BEGIN = -3
+        // const CY_BEGIN = 2
+        // const STEP_CX = 0.5
+        // const STEP_CY = 1
+        // const cx = () => {
+        //   if(state.cubes[0] === undefined || state.cubes[state.cubes.length - 1].cx === Math.abs(CX_BEGIN)){
+        //     return CX_BEGIN
+        //   } else {
+        //     return state.cubes[state.cubes.length - 1].cx + STEP_CX
+        //   }
+        // }
+
+        // const cy = () => {
+        //   if(state.cubes[0] === undefined){
+        //     return CY_BEGIN
+        //   } else if (state.cubes[state.cubes.length - 1].cx === Math.abs(CX_BEGIN)){
+        //     return state.cubes[state.cubes.length - 1].cy - STEP_CY
+        //   } else {
+        //     return state.cubes[state.cubes.length - 1].cy
+        //   }
+        // }
+        let position = [(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5]
+
         const cube = {
           w: 100,
           h: 100,
-          cx: cx(),
-          cy: 50,
+          position: position,
           r: 25,
           number: state.number,
           stop: false,
@@ -58,9 +71,9 @@ export const initialState = {
   
         // ( {} ) dans le return indique à JS de retourner l'expression qui se trouve dans les parenthèses
         cubes = state.cubes.map( cube => ({ ...cube })   );
-  
+        // console.log('before', cubes)
         cubes.sort(() => Math.random() - 0.5);
-  
+        // console.log('after', cubes)
         return {
           ...state,
           // cubes:cubes,

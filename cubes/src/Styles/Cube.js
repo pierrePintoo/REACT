@@ -29,14 +29,17 @@ export const Cube = (props) => {
   
     // Rotate mesh every frame, this is outside of React without overhead
     useFrame(() => {
-      mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+        if(props.stop === false){
+            mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+        }
     })
-  
+    console.log(props.easterEgg)
+
     return (
       <mesh
         {...props}
         ref={mesh}
-        scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+        scale={active || props.easterEgg ? [1.5, 1.5, 1.5] : [0.4, 0.4, 0.4]}
         onClick={(event) => setActive(!active)}
         onPointerOver={(event) => setHover(true)}
         onPointerOut={(event) => setHover(false)}>

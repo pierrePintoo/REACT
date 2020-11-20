@@ -24,7 +24,7 @@ export const stop_odd = () => {
     }
 }
 
-export const easter_egg = payload => {
+export const set_easter_egg = payload => {
     return {
         type: EASTER_EGG, payload
     }
