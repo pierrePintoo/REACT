@@ -33,11 +33,11 @@ export const Cube = (props) => {
             mesh.current.rotation.x = mesh.current.rotation.y += 0.01
         }
     })
-    console.log(props.easterEgg)
 
     return (
       <mesh
         {...props}
+        key={props.number}
         ref={mesh}
         scale={active || props.easterEgg ? [1.5, 1.5, 1.5] : [0.4, 0.4, 0.4]}
         onClick={(event) => setActive(!active)}
