@@ -4,7 +4,7 @@ export const initialState = {
     number: 0,
     cubes: [],
     easter_eggs: [],
-    frequency_easter_eggs : 7 // TODO pour définir la fréquence des easter-eggs
+    frequency_easter_eggs : 3 // TODO pour définir la fréquence des easter-eggs
   };
   
   export const reducer = (state = initialState, action = {}) => {
@@ -23,7 +23,7 @@ export const initialState = {
         }
   
       case ADD_CUBE:
-        const circle = {
+        const cube = {
           w: 100,
           h: 100,
           cx: 50,
@@ -35,7 +35,7 @@ export const initialState = {
   
         return {
           ...state,
-          cubes: state.cubes.concat(circle),
+          cubes: state.cubes.concat(cube),
           number: state.number + 1,
         };
   
@@ -44,10 +44,10 @@ export const initialState = {
       // vraie copie de mes cercles
       // 1. map retourne un tableau donc un nouvel objet
       // 2. copie de chaque littéral des cubes
-        // cubes = state.cubes.map((circle) => { return { ...circle } }  );
+        // cubes = state.cubes.map((cube) => { return { ...cube } }  );
   
         // ( {} ) dans le return indique à JS de retourner l'expression qui se trouve dans les parenthèses
-        cubes = state.cubes.map( circle => ({ ...circle })   );
+        cubes = state.cubes.map( cube => ({ ...cube })   );
   
         cubes.sort(() => Math.random() - 0.5);
   
@@ -58,10 +58,10 @@ export const initialState = {
         };
   
       case STOP_ODD:
-        cubes = state.cubes.map((circle) => {
-          if (circle.number % 2 === 1) circle.stop = true;
+        cubes = state.cubes.map((cube) => {
+          if (cube.number % 2 === 1) cube.stop = true;
   
-          return { ...circle };
+          return { ...cube };
         });
   
         return {
@@ -70,10 +70,10 @@ export const initialState = {
         };
   
       case CHANGE_ODD:
-        cubes = state.cubes.map((circle) => {
-          if (circle.number % 2 === 1) circle.stop = false;
+        cubes = state.cubes.map((cube) => {
+          if (cube.number % 2 === 1) cube.stop = false;
   
-          return { ...circle };
+          return { ...cube };
         });
   
         return {

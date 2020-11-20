@@ -1,32 +1,38 @@
+import { useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
-import { add_cube, shuffle } from './actions/actions-types';
+import { add_cube, change_odd, easter_egg, shuffle, stop_odd } from './actions/actions-types';
+
 import Button from './Styles/Button';
 
 const App = () => {
-  const { cubes } = useSelector(state => state);
+  const { cubes, number, frequency_easter_eggs } = useSelector(state => state);
 
   const dispatch = useDispatch();
 
-  // const handleChange = e => {
-  //   const { value , name } = e.target;
-
-  //   dispatch(set_number({ value, name }));
-  // }
+  useEffect(() => {
+    if( number > 0 && number % frequency_easter_eggs === 0 ){
+      dispatch(easter_egg())
+    }
+  }, [number]);
 
   return (
     <div className="App">
-      {/* <p>{message}</p> */}
-      {/* <input type="text" value={number1} name="number1" onChange={handleChange} />
-      <input type="text" value={number2} name="number2" onChange={handleChange} /> */}
       <Button onClick={() => dispatch(add_cube())}>
         Ajouter un cube
       </Button>
       <Button onClick={() => dispatch(shuffle())}>
-        Ajouter un cube
+        Shuffle
+      </Button>
+      <Button onClick={() => dispatch(change_odd())}>
+        Activer une animation
+      </Button>
+      <Button onClick={() => dispatch(stop_odd())}>
+        Stop l'animation
       </Button>
       <ul>
-        {cubes.map((cube) => <li>{cube.number}</li>)}
+    {cubes.map((cube) => <li>{cube.number}, {cube.stop}</li>)}
       </ul>
     </div>
   );
