@@ -24,20 +24,33 @@ const App = () => {
     height: '100vh'
   }
 
+  const appStyle = {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
+
+  const containerButton = {
+    height: '10%',
+  }
   return (
-    <div className="App">
-      <Button onClick={() => dispatch(add_cube())}>
-        Ajouter un cube
-      </Button>
-      <Button onClick={() => dispatch(shuffle())}>
-        Shuffle
-      </Button>
-      <Button onClick={() => dispatch(change_odd())}>
-        Activer une animation
-      </Button>
-      <Button onClick={() => dispatch(stop_odd())}>
-        Stop l'animation
-      </Button>
+    <div style={appStyle}>
+      <div style={containerButton}>
+        <Button onClick={() => dispatch(add_cube())}>
+          Ajouter un cube
+        </Button>
+        <Button onClick={() => dispatch(shuffle())}>
+          Shuffle
+        </Button>
+        <Button onClick={() => dispatch(change_odd())}>
+          Activer une animation
+        </Button>
+        <Button onClick={() => dispatch(stop_odd())}>
+          Stop l'animation
+        </Button>
+      </div>
       <Canvas style={canvasStyle} >
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
