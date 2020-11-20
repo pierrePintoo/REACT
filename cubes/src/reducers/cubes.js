@@ -64,12 +64,6 @@ export const initialState = {
   
       case SHUFFLE:
   
-      // vraie copie de mes cercles
-      // 1. map retourne un tableau donc un nouvel objet
-      // 2. copie de chaque littéral des cubes
-        // cubes = state.cubes.map((cube) => { return { ...cube } }  );
-  
-        // ( {} ) dans le return indique à JS de retourner l'expression qui se trouve dans les parenthèses
         cubes = state.cubes.map( cube => ({ ...cube })   );
         // console.log('before', cubes)
         cubes.sort(() => Math.random() - 0.5);
