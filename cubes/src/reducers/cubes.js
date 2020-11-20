@@ -45,10 +45,8 @@ export const initialState = {
         //     return state.cubes[state.cubes.length - 1].cy
         //   }
         // }
-        let position = [(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5]
 
         const cube = {
-          position: position,
           number: state.number,
           stop: false,
         };

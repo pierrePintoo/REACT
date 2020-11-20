@@ -34,7 +34,7 @@ export const Cube = (props) => {
             mesh.current.rotation.x = mesh.current.rotation.y += 0.01
         }
     })
-    console.log(props.position)
+    // console.log(props.position)
 
     return (
     <Fragment>
@@ -48,7 +48,7 @@ export const Cube = (props) => {
         <boxBufferGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
       </mesh>
-      <Text color="black" position={ [props.position[0] * 0.45, props.position[1] * 0.45, 0.6] } >
+      <Text color="black" position={[props.position[0] * 0.45, props.position[1] * 0.45, 0.6] } >
         { props.number.toString() }
       </Text>
     </Fragment>

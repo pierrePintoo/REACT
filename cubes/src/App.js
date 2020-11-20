@@ -24,7 +24,7 @@ const App = () => {
     height: '100vh'
   }
 
-  // console.log('cc',cubes)
+  console.log('cc',cubes)
   return (
     <div className="App">
       <Button onClick={() => dispatch(add_cube())}>
@@ -39,11 +39,11 @@ const App = () => {
       <Button onClick={() => dispatch(stop_odd())}>
         Stop l'animation
       </Button>
-      <Canvas style={canvasStyle}>
+      <Canvas style={canvasStyle} >
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         {cubes.length > 0 &&
-                cubes.map((cube, i) => <Cube key={i} easterEgg={easter_eggs.includes(cube.number)} { ...cube }/>)}
+                cubes.map((cube, i) => <Cube key={i} easterEgg={easter_eggs.includes(cube.number)} position={[(i * 2 % 20 - 10), 5 - Math.floor(i / 10) * 2, -5]} {...cube }/>)}
       </Canvas>
       {cubes.map((cube) => <li>{cube.number}</li>)}
     </div>
