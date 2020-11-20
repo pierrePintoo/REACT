@@ -15,7 +15,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cubes.length === FREQUENCY_EASTER_EGG + 1 && cubes[FREQUENCY_EASTER_EGG].easterEgg === false) {
+    if (cubes.length === FREQUENCY_EASTER_EGG + 1 && cubes[FREQUENCY_EASTER_EGG].easter_eggs === false) {
+      console.log('easter')
       dispatch(set_easter_egg())
     }
   }, [cubes, dispatch])
