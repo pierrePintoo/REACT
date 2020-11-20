@@ -24,7 +24,7 @@ const App = () => {
     height: '100vh'
   }
 
-  console.log(easter_eggs, cubes.map((cube, i) => easter_eggs.includes(cube.number)))
+  // console.log('cc',cubes)
   return (
     <div className="App">
       <Button onClick={() => dispatch(add_cube())}>
@@ -43,8 +43,9 @@ const App = () => {
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         {cubes.length > 0 &&
-                cubes.map((cube, i) => <Cube key={i} easterEgg={easter_eggs.includes(cube.number)} position={cube.position} stop={cube.stop}/>)}
+                cubes.map((cube, i) => <Cube key={i} easterEgg={easter_eggs.includes(cube.number)} { ...cube }/>)}
       </Canvas>
+      {cubes.map((cube) => <li>{cube.number}</li>)}
     </div>
   );
 }

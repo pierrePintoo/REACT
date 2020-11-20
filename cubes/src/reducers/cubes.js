@@ -48,10 +48,7 @@ export const initialState = {
         let position = [(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5]
 
         const cube = {
-          w: 100,
-          h: 100,
           position: position,
-          r: 25,
           number: state.number,
           stop: false,
         };

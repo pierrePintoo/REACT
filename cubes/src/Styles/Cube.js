@@ -1,8 +1,10 @@
 import styled, { keyframes } from 'styled-components'
 
-import { useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
 import { useFrame } from 'react-three-fiber'
+
+import { Text } from 'drei'
 
 const pulse = keyframes`
     0% {
@@ -22,7 +24,6 @@ const pulse = keyframes`
 export const Cube = (props) => {
     // This reference will give us direct access to the mesh
     const mesh = useRef()
-  
     // Set up state for the hovered and active state
     const [hovered, setHover] = useState(false)
     const [active, setActive] = useState(false)
@@ -33,11 +34,12 @@ export const Cube = (props) => {
             mesh.current.rotation.x = mesh.current.rotation.y += 0.01
         }
     })
-    console.log(props.easterEgg)
+    console.log(props.position)
 
     return (
+    <Fragment>
       <mesh
-        {...props}
+        position={props.position}
         ref={mesh}
         scale={active || props.easterEgg ? [1.5, 1.5, 1.5] : [0.4, 0.4, 0.4]}
         onClick={(event) => setActive(!active)}
@@ -46,6 +48,10 @@ export const Cube = (props) => {
         <boxBufferGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
       </mesh>
+      <Text color="black" position={ [props.position[0] * 0.45, props.position[1] * 0.45, 0.6] } >
+        { props.number.toString() }
+      </Text>
+    </Fragment>
     )
   }
 
