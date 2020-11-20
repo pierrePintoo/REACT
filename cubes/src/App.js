@@ -24,7 +24,6 @@ const App = () => {
     height: '100vh'
   }
 
-  console.log('cc',cubes)
   return (
     <div className="App">
       <Button onClick={() => dispatch(add_cube())}>
