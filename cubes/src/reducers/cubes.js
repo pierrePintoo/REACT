@@ -4,7 +4,7 @@ export const initialState = {
     number: 0,
     cubes: [],
     easter_eggs: [],
-    frequency_easter_eggs : 3 
+    frequency_easter_eggs : 17
   };
   
   export const reducer = (state = initialState, action = {}) => {

@@ -35,6 +35,7 @@ const App = () => {
   const containerButton = {
     height: '10%',
   }
+  
   return (
     <div style={appStyle}>
       <div style={containerButton}>
