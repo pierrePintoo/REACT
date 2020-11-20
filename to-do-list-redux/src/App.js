@@ -7,7 +7,7 @@ console.log(store)
 const App = () => {
   return (
     <Provider store={store}>
-      <ToDoListStore />
+      <ToDoList />
     </Provider>
   );
 }

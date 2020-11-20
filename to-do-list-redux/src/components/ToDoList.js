@@ -1,4 +1,7 @@
-import { connect } from 'react-redux'
+import { useDebugValue } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
+import { toggleToDoActions } from '../store/todosActions'
+import { todosSelector } from '../store/ToDoSelectors'
 
 const ToDoItem = ({todo, onToggle}) => {
     return (
@@ -12,6 +15,8 @@ const ToDoItem = ({todo, onToggle}) => {
 }
 
 export const ToDoList = ({todos, onToggle}) => {
+    const todos = useSelector(todosSelector)
+    const dispatch = useDispatch()
     return (
         <ul>
             {todos.map((todo) => <ToDoItem
@@ -23,14 +28,11 @@ export const ToDoList = ({todos, onToggle}) => {
     )
 }
 
-export const ToDoListStore = connect(
-    (state) => ({
-        todos: state.todos,
-    }),
-    (disatch) => ({
-        onToggle: todo => disatch({
-            type: "UPDATE_TODO",
-            payload: {...todo, completed: !todo.completed}
-        })
-    })
-)(ToDoList)
+// export const ToDoListStore = connect(
+//     (state) => ({
+//         todos: todosSelector(state),
+//     }),
+//     (disatch) => ({
+//         onToggle: todo => disatch(toggleToDoActions(todo))
+//     })
+// )(ToDoList)
