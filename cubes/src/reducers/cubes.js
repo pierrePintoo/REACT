@@ -7,8 +7,9 @@ export const initialState = {
     frequency_easter_eggs : 7 // TODO pour définir la fréquence des easter-eggs
   };
   
-  export const reducer = (state, action) => {
+  export const reducer = (state = initialState, action = {}) => {
     let cubes;
+    console.log(state)
     switch (action.type) {
   
       case EASTER_EGG:
@@ -22,7 +23,6 @@ export const initialState = {
         }
   
       case ADD_CUBE:
-  
         const circle = {
           w: 100,
           h: 100,
