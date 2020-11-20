@@ -6,7 +6,7 @@ export const add_cube = () => {
     }
 }
 
-export const suffle = () => {
+export const shuffle = () => {
     return {
         type: SHUFFLE
     }
