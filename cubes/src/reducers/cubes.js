@@ -1,3 +1,4 @@
+import { Uniform } from "three";
 import { ADD_CUBE, CHANGE_ODD, EASTER_EGG, SHUFFLE, STOP_ODD } from "../constants/actions";
 
 export const initialState = {
@@ -9,6 +10,7 @@ export const initialState = {
   
   export const reducer = (state = initialState, action = {}) => {
     let cubes;
+    let cx = 0
     console.log(state)
     switch (action.type) {
   
@@ -23,10 +25,18 @@ export const initialState = {
         }
   
       case ADD_CUBE:
+        let cx = () => {
+          if(state.cubes[0] === undefined){
+            return 0
+          }
+          else {
+            return state.cubes[state.cubes.length - 1].cx + 3
+          }
+        }
         const cube = {
           w: 100,
           h: 100,
-          cx: 50,
+          cx: cx(),
           cy: 50,
           r: 25,
           number: state.number,

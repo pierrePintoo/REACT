@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Canvas } from 'react-three-fiber';
 
 import { add_cube, change_odd, easter_egg, shuffle, stop_odd } from './actions/actions-types';
 
 import Button from './Styles/Button';
+import { Cube } from './Styles/Cube'
 
 const App = () => {
   const { cubes, number, frequency_easter_eggs } = useSelector(state => state);
@@ -31,9 +33,12 @@ const App = () => {
       <Button onClick={() => dispatch(stop_odd())}>
         Stop l'animation
       </Button>
-      <ul>
-    {cubes.map((cube) => <li>{cube.number}, {cube.stop}</li>)}
-      </ul>
+      <Canvas>
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        {cubes.length > 0 &&
+                cubes.map((cube, i) => <Cube key={i} position={[cube.cx, 1, 0]}/>)}
+      </Canvas>
     </div>
   );
 }
